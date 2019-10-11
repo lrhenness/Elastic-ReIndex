@@ -49,8 +49,8 @@ do
 	docsNew=$(curl -k -u $user:$pass -HContent-Type:application/json -X GET "${ip}/${toReindex[$1]}-reindexed/_stats" | jq '._all.primaries.docs.count')
 done
 echo "Match! DELETING INDEX "${toReindex[$1]}
-# DELETE INDEX 
-#curl -k -u $user:$pass -X DELETE "${ip}/${$1}"
+# DELETE INDEX
+#curl -k -u $user:$pass -X DELETE "${ip}/${toReindex[$1]}"
 }
 
 # Check the value of max

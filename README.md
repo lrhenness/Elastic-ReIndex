@@ -2,7 +2,8 @@
 This project aims to simplify and automate the re-indexing and compression of documents with conflicting fields in Elasticsearch
 
 ### Dependencies:
-* jq
+* jq 
+** (user@ubuntu$ sudo apt install jq)
 
 ### What This Does
 This script takes a list of indexes (provided by you) from a the reindex_list file. Once the environmental variables are set correctly, the script will run through and reindex each index, check that it has properly obtained all previous documents, then delete the old index.

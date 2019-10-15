@@ -48,8 +48,10 @@ do
 	sleep $timer
 	docsNew=$(curl -k -u $user:$pass -HContent-Type:application/json -X GET "${ip}/${toReindex[$1]}-reindexed/_stats" | jq '._all.primaries.docs.count')
 done
-echo "Match! DELETING INDEX "${toReindex[$1]}
-# DELETE INDEX
+echo " "
+echo " "
+echo "Match! DELETING index: "${toReindex[$1]}
+# Uncomment to enable deletion
 #curl -k -u $user:$pass -X DELETE "${ip}/${toReindex[$1]}"
 }
 
@@ -71,7 +73,10 @@ do
 	then
 		check_and_delete "(($i-$max))"
 	fi
+	echo " "
+	echo " "
 	echo "Reindexing: "$index
+	echo " "
 	curl -k -u $user:$pass -HContent-Type:application/json -XPOST "${ip}/_reindex" -d '{
 	"source": {
 	"index": "'$index'"
@@ -92,6 +97,7 @@ do
 	((toDo++))
 done
 
+echo " "
 echo "--------------------------------------------------------"
 echo "----------------Reindexing complete!--------------------"
 echo "--------------------------------------------------------"

@@ -31,7 +31,7 @@ max=3
 timer=10
 
 # Name of index list
-toReindex=(`cat "reindex_list"`)
+toReindex=(`cat "list.txt"`)
 
 
 #--------------------------------------------------------

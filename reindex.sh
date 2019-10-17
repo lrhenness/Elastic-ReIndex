@@ -43,7 +43,7 @@ docsOld=$(curl -k -u $user:$pass -HContent-Type:application/json -X GET "${ip}/$
 docsNew=$(curl -k -u $user:$pass -HContent-Type:application/json -X GET "${ip}/${toReindex[$1]}-reindexed/_stats" | jq '._all.primaries.docs.count')
 until [ $docsOld -eq $docsNew ]
 do
-	echo "Comparing "${toReindex[$1]}" to "${toReindex[$1]}"-new"
+	echo "Comparing "${toReindex[$1]}" to "${toReindex[$1]}"-reindexed"
 	echo "not matched yet..."
 	sleep $timer
 	docsNew=$(curl -k -u $user:$pass -HContent-Type:application/json -X GET "${ip}/${toReindex[$1]}-reindexed/_stats" | jq '._all.primaries.docs.count')
@@ -77,7 +77,7 @@ do
 	echo " "
 	echo "Reindexing: "$index
 	echo " "
-	curl -k -u $user:$pass -HContent-Type:application/json -XPOST "${ip}/_reindex" -d '{
+	curl -k -u $user:$pass -m 30 -HContent-Type:application/json -XPOST "${ip}/_reindex" -d '{
 	"source": {
 	"index": "'$index'"
 	},

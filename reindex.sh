@@ -1,21 +1,13 @@
 #!/bin/bash
-#
-#
-# Made by Luke Henness
-# Security Analyst
-# H & A Security Solutions
-#
-#
-#
-# Place all index names that you need reindexed
-# into reindex_list in the same directory as this script.
-# Make sure your elasticsearch node IP is correct if not localhost
-#
-#
-#
 #--------------------------------------------------------
 #------------------Environment Variables-----------------
 #--------------------------------------------------------
+# Place all index names that you need reindexed
+# into list.txt in the same directory as this script.
+# Make sure your elasticsearch node IP is correct.
+#
+#
+#
 # Creds for Elasticsearch
 user="admin"
 pass="hunter1"

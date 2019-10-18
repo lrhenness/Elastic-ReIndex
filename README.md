@@ -3,6 +3,10 @@
 This project aims to simplify and automate the re-indexing and compression of documents with conflicting fields in Elasticsearch
 
 
+## Dependencies:
+* [jq](https://stedolan.github.io/jq/) - a lightweight and flexible command-line JSON processor
+
+
 ## Features - Current
 
 
@@ -27,9 +31,6 @@ This project aims to simplify and automate the re-indexing and compression of do
 - Index compression
     - Shrink support
     - _all reduction
-
-## Dependencies:
-* [jq](https://stedolan.github.io/jq/) - a lightweight and flexible command-line JSON processor
 
 ## Breakdown
 This script takes a list of indexes (provided by you) from a the `list.txt` file. Once the environmental variables are set correctly, the script will run through and reindex each index, check that it has properly obtained all previous documents, then delete (commented out by default) the old index.

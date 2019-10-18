@@ -25,6 +25,9 @@ This project aims to simplify and automate the re-indexing and compression of do
 	- Give job buffer variable
 	- Give new extention variable
 	- Ability to remove previous extentions
+- Statistics
+	- Progress percentage
+	- Average speed in indexes/second
 - Regex capabilities
 	- Dynamically edit "-word" extentions after dates for indices
 	- Environmental variable error detection

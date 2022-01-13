@@ -3,9 +3,11 @@ import requests
 import json
 import time
 
-#Gather credentials from client_info.json
-#Gather host from ?
-#Gather The list of indices to reindex from semi-colon KV pair line-delimited text file (is there a better way?)
+usernme = #Gather credentials from client_info.json
+password = #Gather credentials from client_info.json
+host = #Gather host from ?
+port = 9200
+list = open("list.txt", "r") #Gather The list of indices to reindex from semi-colon KV pair line-delimited text file (is there a better way?)
     #Example of text file:
     """
     logstash-dev-serilog-2021.02.19:logstash-dev-serilog-reindex
@@ -28,7 +30,7 @@ def check_task(task): #Check on the task:
         exit() #exit program
 
 #build authenticated request URL passing creds:
-post = requests.post("https://" + host + ":9200/_reindex?wait_for_completion=false")
+post = requests.post("https://" + host + ":" + port + "/_reindex?wait_for_completion=false")
 
 for line in list:
     split = line.split(":") #Split the current line in the text file by semicolon

@@ -18,13 +18,13 @@ list = open("list.txt", "r") #Gather The list of indices to reindex from semi-co
     """
 
 def check_task(task): #Check on the task:
-    get = json.loads(requests.get("https://" + host + ":9200/_tasks/" + task)) #GET task information and convert JSON response to Python dictionary
+    get = json.loads(requests.get("https://" + host + ":" + port + "/_tasks/" + task)) #GET task information and convert JSON response to Python dictionary
     while get["completed"] != "true": #Task not complete, print status message and wait
         print("waiting for task" + task + "to complete. Progress: " + (((get["task"]["status"]["created"]/get["task"]["status"]["total"])*100)) + "%")
         time.sleep(5)
         get = json.loads(requests.get("https://" + host + ":9200/_tasks/" + task))
     try:
-        curl -X DELETE "localhost:9200/my-index-000001"
+        curl -X DELETE "https://" host + ":" + port + "/" + split[0]
     except:
         print("An error occured with deletion of " + split[0] + " - Task ID: " + task)
         exit() #exit program

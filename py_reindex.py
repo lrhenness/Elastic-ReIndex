@@ -7,8 +7,8 @@ import http
 
 http.client.HTTPConnection.debuglevel = 1
 
-username = 'elastic'
-password = 'Hunter1'
+username = 'admin'
+password = 'hunter1'
 host = 'localhost'
 port = '9200'
 
@@ -36,7 +36,7 @@ def reindex(list):
         split = line.split(":") #Split the current line in the text file by semicolon
         print("Reindexing: " + split[0] + " => " + split[1])
         #Build POST:
-        body = "{\"source\":{\"index\":" + split[0] + "},\"dest\":{\"index\":" + split[1] + "}}"
+        body = '{"source":{"index":"' + split[0] + '"},"dest":{"index":"' + split[1] + '"}}'
         #Send POST and gather .task returned by combining post & body
         try:
             resp = requests.post(header, data=body, timeout=10, verify=False, auth=HTTPBasicAuth(username, password)).json()

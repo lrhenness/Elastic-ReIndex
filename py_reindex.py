@@ -12,6 +12,26 @@ password = 'hunter1'
 host = 'localhost'
 port = '9200'
 
+def main():
+    list = open("list.txt", "r") #Gather The list of indices to reindex from semi-colon KV pair line-delimited text file (is there a better way?)
+    #Example of text file (no quotes):
+    """
+    logstash-dev-serilog-2021.02.19:logstash-dev-serilog-reindex
+    logstash-dev-serilog-2021.02.20:logstash-dev-serilog-reindex
+    logstash-dev-serilog-2021.02.21:logstash-dev-serilog-reindex
+    logstash-qa-serilog-2021.02.19:logstash-qa-serilog-reindex
+    logstash-qa-serilog-2021.02.20:logstash-qa-serilog-reindex
+    """
+    print("")
+    print(list)
+    if input("Would you like to reindex all of the above? [y/n]") == "y":
+        print("Reindexing...")
+        reindex(list)
+        exit()
+    else:
+        print("Exiting...")
+        exit()
+
 def delete_index(source):
     print("The program has indicated that the reindex of " + source + " is now complete and the index should be deleted")
     #Comment the following to prevent deleting indices during testing
@@ -48,25 +68,5 @@ def reindex(list):
             exit()
         #Check if complete before continuing
         check_task(resp["task"], split[0])
-
-def main():
-    list = open("list.txt", "r") #Gather The list of indices to reindex from semi-colon KV pair line-delimited text file (is there a better way?)
-    #Example of text file (no quotes):
-    """
-    logstash-dev-serilog-2021.02.19:logstash-dev-serilog-reindex
-    logstash-dev-serilog-2021.02.20:logstash-dev-serilog-reindex
-    logstash-dev-serilog-2021.02.21:logstash-dev-serilog-reindex
-    logstash-qa-serilog-2021.02.19:logstash-qa-serilog-reindex
-    logstash-qa-serilog-2021.02.20:logstash-qa-serilog-reindex
-    """
-    print("")
-    print(list)
-    if input("Would you like to reindex all of the above? [y/n]") == "y":
-        print("Reindexing...")
-        reindex(list)
-        exit()
-    else:
-        print("Exiting...")
-        exit()
 
 main()

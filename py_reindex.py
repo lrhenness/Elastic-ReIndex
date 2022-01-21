@@ -10,7 +10,7 @@ urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 debug = False
 disable_delete_confirmation = True
 username = 'admin'
-password = 'hunter1'
+password = 'hunter2'
 host = 'localhost'
 port = '9200'
 
@@ -32,7 +32,7 @@ def check_task(task, list_current, list_total): #Check on the task:
                 print("Created: " + str(p_created))
                 print("Total: " + str(p_total))
             progress = 0
-        print("waiting for task " + task + " to complete. " + str(p_created) + " out of " + str(p_total) + " docs reindexed. Task progress: " + str(progress) + "%")
+        print("Waiting for task " + task + " to complete. " + str(p_created) + " out of " + str(p_total) + " docs reindexed. Task progress: " + str(progress) + "%")
         list_percentage = ( int(list_current) / int(list_total) ) * 100
         list_percentage = "{:.2f}".format(list_percentage)
         print("Total list progress: " + str(list_current) + " out of " + str(list_total) + " indices reindexed. Percentage: " + str(list_percentage) + "%")
@@ -83,6 +83,7 @@ def main():
             resp = reindex(body) #Send Reindex POST
             check_task(resp["task"], i, file_length) #Pass task ID, current list index, and total list length
             if disable_delete_confirmation:
+                print("Reindex of " + source + " is now complete. Deleting the the source index and moving on!")
                 resp = delete_index(source)
                 if debug:
                     print("====response====")

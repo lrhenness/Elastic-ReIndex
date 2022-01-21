@@ -4,6 +4,8 @@ from requests.auth import HTTPBasicAuth
 import json
 import time
 import http
+import urllib3
+urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 debug = False
 disable_delete_confirmation = True
@@ -69,10 +71,8 @@ def main():
             print("Exiting...")
             exit()
         i = 0 #Current index of list for updating progress status in check_task() function
-        print("Made it here 1")
     with open("list.txt", "r") as file:
         for line in file:
-            print("Made it here 2")
             split = line.split(":") #Split the current line in the text file by semicolon
             source = split[0]
             destination = split[1].strip()

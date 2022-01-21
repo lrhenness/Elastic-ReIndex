@@ -5,7 +5,7 @@ import json
 import time
 import http
 
-debug = True
+debug = False
 disable_delete_confirmation = True
 username = 'admin'
 password = 'hunter1'
@@ -101,6 +101,6 @@ def main():
                     time.sleep(1)
             i = i + 1
 
-#if debug:
-    #http.client.HTTPConnection.debuglevel = 1
+if debug:
+    http.client.HTTPConnection.debuglevel = 1
 main()

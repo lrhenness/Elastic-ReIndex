@@ -18,7 +18,9 @@ def delete_index(source):
         time.sleep(1)
         try:
             resp = requests.delete("https://" + host + ":" + port + "/" + source, timeout=10, verify=False, auth=HTTPBasicAuth(username, password)).json()
-            curl -X DELETE "https://" host + ":" + port + "/" + source
+            if debug:
+                print("====response====")
+                print(resp)
         except:
             print("An error occured with deletion of " + source)
             exit() #exit program

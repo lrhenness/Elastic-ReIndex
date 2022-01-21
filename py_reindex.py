@@ -6,6 +6,7 @@ import time
 import http
 
 debug = True
+disable_delete_confirmation = True
 username = 'admin'
 password = 'hunter1'
 host = 'localhost'
@@ -81,17 +82,23 @@ def main():
             body = json.loads(body)
             resp = reindex(body) #Send Reindex POST
             check_task(resp["task"], i, file_length) #Pass task ID, current list index, and total list length
-            print("The program has indicated that the reindex of " + source + " is now complete and the index should be deleted")
-            if input("Would you like to delete the source? [y/n]") == "y":
-                print("Deleting...")
-                time.sleep(1)
+            if disable_delete_confirmation:
                 resp = delete_index(source)
                 if debug:
                     print("====response====")
                     print(resp)
             else:
-                print("Source not deleted, moving on...")
-                time.sleep(1)
+                print("The program has indicated that the reindex of " + source + " is now complete and the index should be deleted")
+                if input("Would you like to delete the source? [y/n]") == "y":
+                    print("Deleting...")
+                    time.sleep(1)
+                    resp = delete_index(source)
+                    if debug:
+                        print("====response====")
+                        print(resp)
+                else:
+                    print("Source not deleted, moving on...")
+                    time.sleep(1)
             i = i + 1
 
 #if debug:

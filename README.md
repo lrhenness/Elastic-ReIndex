@@ -1,5 +1,5 @@
 # Elastic-Reindex
-## _Bulk reindexing in Elasticsearch using Python_
+## _Bulk reindexing in Elasticsearch or Opensearch using Python_
 
 Use at your own risk! This is not production ready by any means. 
 That being said, This script runs fairly reliably in testing and with close monitoring.

@@ -40,6 +40,11 @@ def check_task(task, list_current, list_total): #Check on the task:
         status = requests.get("https://" + host + ":" + port + "/_tasks/" + task, timeout=10, verify=False, auth=HTTPBasicAuth(username, password)).json()
         if debug:
             print("API response for task completed: " + str(status["completed"]))
+    #Add checks here for errors in the task status response.
+    if int(status["task"]["status"]["created"]) == int(status["task"]["status"]["total"]):
+        return True #Reindex complete, return completed = True
+    else:
+        return False #There was probably an error, return completed = False
 
 def reindex(body):
     header = "https://" + host + ":" + port + "/_reindex?wait_for_completion=false" #build authenticated request URL passing creds:
@@ -58,6 +63,7 @@ def reindex(body):
     return resp
 
 def main():
+    errors = [] #Initialize error list
     with open("list.txt", "r") as file:
         print("Lines in file:")
         file_length = 0
@@ -81,26 +87,38 @@ def main():
             body = '{"source":{"index":"' + source + '"},"dest":{"index":"' + destination + '"}}'
             body = json.loads(body)
             resp = reindex(body) #Send Reindex POST
-            check_task(resp["task"], i, file_length) #Pass task ID, current list index, and total list length
-            if disable_delete_confirmation:
-                print("Reindex of " + source + " is now complete. Deleting the the source index and moving on!")
-                resp = delete_index(source)
-                if debug:
-                    print("====response====")
-                    print(resp)
-            else:
-                print("The program has indicated that the reindex of " + source + " is now complete and the index should be deleted")
-                if input("Would you like to delete the source? [y/n]") == "y":
-                    print("Deleting...")
-                    time.sleep(1)
+            complete = check_task(resp["task"], i, file_length) #Pass task ID, current list index, and total list length
+            if complete:
+                if disable_delete_confirmation:
+                    print("Reindex of " + source + " is now complete. Deleting the the source index and moving on!")
                     resp = delete_index(source)
                     if debug:
                         print("====response====")
                         print(resp)
                 else:
-                    print("Source not deleted, moving on...")
-                    time.sleep(1)
+                    print("The program has indicated that the reindex of " + source + " is now complete and the index should be deleted")
+                    if input("Would you like to delete the source? [y/n]") == "y":
+                        print("Deleting...")
+                        time.sleep(1)
+                        resp = delete_index(source)
+                        if debug:
+                            print("====response====")
+                            print(resp)
+                    else:
+                        print("Source not deleted, moving on...")
+                        time.sleep(1)
+            else:
+                print("There was an error when reindexing the source: " + source + " - Adding to error queue and moving on. Task: " + resp["task"])
+                errors.append(str(resp["task"]))
             i = i + 1
+    if len(errors) == 0:
+        print("All reindex tasks completed without error! Exiting.")
+        exit()
+    else:
+        print("There were errors detected with the following tasks. This may be an index template issue.")
+        print(*errors, sep = "\n")
+        print("Use the following to check the tasks in Kibana Dev Tools:     GET /_tasks/TASK_ID")
+        exit()
 
 if debug:
     http.client.HTTPConnection.debuglevel = 1

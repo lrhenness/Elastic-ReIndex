@@ -7,7 +7,7 @@ That being said, This script runs fairly reliably in testing and with close moni
 The following information assumes you know a little bit about the task of reindexing indices in Elasticsearch.
 
 ### Features:
-* Reindexing a limitless amount of indices to a limitless amount of destination indices
+* Reindexing a limitless amount of source indices to a limitless amount of destination indices/aliases
 * Task & total progress displayed during runtime
 * *light* error checking and error queue
     * The program currently tests for the following from Elastic's task API: `completed = True` AND `task.status.created == task.status.total`

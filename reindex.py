@@ -54,9 +54,9 @@ def reindex(body):
         print("An error occured while sending the reindex POST. Please check the configured host, port, and/or credentials.")
         exit()
     if debug:
-        print("=====header=====")
+        print("=======URL======")
         print(header)
-        print("======body======")
+        print("=======body=====")
         print(body)
         print("====response====")
         print(resp)
@@ -79,7 +79,7 @@ def main():
         i = 0 #Current index of list for updating progress status in check_task() function
     with open("list.txt", "r") as file:
         for line in file:
-            split = line.split(":") #Split the current line in the text file by semicolon
+            split = line.split(":") #Split the current line in the text file by colon
             source = split[0]
             destination = split[1].strip()
             print("Reindexing: " + source + " => " + destination)

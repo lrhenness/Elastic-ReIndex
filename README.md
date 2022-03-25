@@ -30,7 +30,7 @@ The following information assumes you know a little bit about the task of reinde
         * https://www.elastic.co/guide/en/elasticsearch/reference/current/ignore-malformed.html
     * The destination index should probably be an alias if you are working with a large set of data to reindex
 * Modify:
-    * `list.txt` This is the input of source & destination indices to reindex. The format is currently a colon separated, line-delimited list of `source:destination` indices. Be weary of whitespac - the script will interpret it as intentional. Correct and expected syntax example:
+    * `list.txt` This is the input of source & destination indices to reindex. The format is currently a colon separated, line-delimited list of `source:destination` indices. Be weary of whitespace - the script will interpret it as intentional. Correct and expected syntax example:
         ```
         logstash-stage-logs-2021.07.01:logstash-stage-logs-reindex
         logstash-stage-logs-2021.07.02:logstash-stage-logs-reindex

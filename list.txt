@@ -1,4 +1,4 @@
-logstash-dev-serilog-2021.02.22:logstash-dev-serilog-reindex
-logstash-dev-serilog-2021.02.25:logstash-dev-serilog-reindex
-logstash-dev-serilog-2021.04.01:logstash-dev-serilog-reindex
-logstash-dev-serilog-2021.04.05:logstash-dev-serilog-reindex
+logstash-example1-source-00345:logstash-example-destination-alias
+logstash-example1-source-00346:logstash-example-destination-alias
+logstash-example2-source-2022-08-22:logstash-example-destination-2022-08-22
+logstash-example2-source-2022-08-23:logstash-example-destination-2022-08-23

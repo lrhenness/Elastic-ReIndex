@@ -32,13 +32,10 @@ The following information assumes you know a little bit about the task of reinde
 * Modify:
     * `list.txt` This is the input of source & destination indices to reindex. The format is currently a colon separated, line-delimited list of `source:destination` indices. Be weary of whitespace - the script will interpret it as intentional. Correct and expected syntax example:
         ```
-        logstash-stage-logs-2021.07.01:logstash-stage-logs-reindex
-        logstash-stage-logs-2021.07.02:logstash-stage-logs-reindex
-        logstash-stage-logs-2021.07.03:logstash-stage-logs-reindex
-        logstash-dev-logs-2021.06.14:logstash-dev-logs-reindex
-        logstash-dev-logs-2021.06.15:logstash-dev-logs-reindex
-        logstash-prod-logs-2021.06.14:logstash-prod-logs-reindex
-        logstash-prod-logs-2021.06.15:logstash-prod-logs-reindex
+        logstash-example1-source-00345:logstash-example-destination-alias
+        logstash-example1-source-00346:logstash-example-destination-alias
+        logstash-example2-source-2022-08-22:logstash-example-destination-2022-08-22
+        logstash-example2-source-2022-08-23:logstash-example-destination-2022-08-23
         ```
     * `reindex.py` The following variable assignment configurations in the beginning:
         * `username` Elasticsearch username with sufficient permissions

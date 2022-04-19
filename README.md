@@ -42,3 +42,18 @@ The following information assumes you know a little bit about the task of reinde
         * `password` Elasticsearch password. **See limitations section above about securing credentials**
         * `host` Elasticsearch hostname or IP. For clusters, this should be the client node.
         * `port` Elasticsearch port
+* [optional] Multithreading:
+   * For now, the only way to multithread reindexes is to run multiple instances of `reindex.py` using different `list.txt` files. Create as many `list.txt` files as you need, all with unique indices similar to the following:
+   * Then, create as many `reindex.py` files as `list.txt` files. For each new `reindex.py` file, find and replace `list.txt` in the code to the name of a new `list.txt`, something like `list2.txt`
+   * Finally, run all `reindex.py` scripts simultaneously. tmux is a decent tool for this.
+
+### Hopes for the future:
+* More robust error checking & handling
+   * Add `updated` return to `completed` to compare to `total`.
+* Runtime options:
+   * quit - graceful (q): Cancels the current reindex, presents error queue and list of indices touched/untouched. Asks to update list.txt to remove completed indices
+   * quit - force (f): Simply exits the script gracefully. Leaves current reindex task running on ES's backend. May cause duplicate data
+* Prettier stdout
+* Application Logging - Already have a stdout debug logging option, but I would like standardized logs for further review/ingestion into ELK/Opensearch
+* Containerization - For automating bulk reindexes using an API or web front-end
+* Pre-run options to dynamically create the index template, index (alias), and specify `"index.mapping.ignore_malformed": true` if desired.

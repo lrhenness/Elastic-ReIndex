@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 import requests
 from requests.auth import HTTPBasicAuth
+from datetime import datetime
 import json
 import time
 import http
@@ -113,11 +114,13 @@ def main():
             i = i + 1
     if len(errors) == 0:
         print("All reindex tasks completed without error! Exiting.")
+        print("date and time =", datetime.now().strftime("%m/%d/%Y %H:%M:%S"))
         exit()
     else:
         print("There were errors detected with the following tasks. This may be an index template issue.")
         print(*errors, sep = "\n")
         print("Use the following to check the tasks in Kibana Dev Tools:     GET /_tasks/TASK_ID")
+        print("date and time =", datetime.now().strftime("%m/%d/%Y %H:%M:%S"))
         exit()
 
 if debug:
